@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Invoice {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  companyName   String
+  invoiceAuthor String
+  companyAddress String
+  companyCity   String
+  companyCountry String
+  clientCompany String
+  clientAddress String
+  clientCity    String
+  clientCountry String
+  invoiceNumber String
+  invoiceDate   DateTime
+  invoiceDueDate DateTime
+  notes         String
+  terms          String
+  logoUrl       String
+  tableData     Row[]
+  user       User     @relation(fields: [userId], references: [email]) 
+  userId      String   
+  
+}
+
+model Row {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  itemDescription String
+  qty             Int
+  unitPrice       Float
+  tax             Float
+  amount          Float
+  invoiceId       String  @db.ObjectId  // Ensure this matches the native type of `Invoice.id`
+  invoice         Invoice @relation(fields: [invoiceId], references: [id])
+}
+
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  email    String @unique
+  password String
+  name     String?
+  invoices Invoice[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

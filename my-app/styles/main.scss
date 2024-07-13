@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0; /* Ensure there's no default margin affecting layout */
+  display: flex;
+  flex-direction: column;
+}
+
+.invoice-cta {
+  height: 100vh;
+  background: url("/images/invoice-template.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* Add padding if needed to increase the image size within the container */
+}
+
+.previewContainer, .formContainer {
+  max-height: 80vh; /* Adjust based on your layout needs */
+  overflow-y: auto; /* Enable vertical scrolling */
+  
+  /* Use auto to adapt to content, or specify a fixed height */
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  margin-top: auto; /* Push footer to the bottom of the page */
+  background-color: #f8f9fa; /* Optional: Add a background color for visibility */
+  padding: 1rem; /* Adjust padding as needed */
+  text-align: center; /* Center the text */
+  border-top: 1px solid #ddd; /* Optional: Add a border on top for separation */
+}
